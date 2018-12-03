@@ -20,7 +20,7 @@ VALID_CLASS_IDS = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 2
 def get_files(split):
   dset_path = '/DS/ScanNet/SparseCNN'
   with open(f'Benchmark/scannetv1_{split}.txt') as f:
-    scene_names = [l.strip() for l in f.readlines()][0:10]
+    scene_names = [l.strip() for l in f.readlines()]
   files = [f'{dset_path}/{scene}/{scene}_vh_clean_2.pth' for scene in scene_names]
   return files
 
