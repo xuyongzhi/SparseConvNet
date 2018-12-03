@@ -18,7 +18,9 @@ full_scale=4096 #Input field size
 VALID_CLASS_IDS = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 28, 33, 34, 36, 39])
 
 def get_files(split):
-  dset_path = '/DS/ScanNet/SparseCNN'
+  import os
+  cur_path = os.path.dirname(os.path.abspath(__file__))
+  dset_path = f'{cur_path}/ScanNetTorch'
   with open(f'Benchmark/scannetv1_{split}.txt') as f:
     scene_names = [l.strip() for l in f.readlines()]
   files = [f'{dset_path}/{scene}/{scene}_vh_clean_2.pth' for scene in scene_names]
