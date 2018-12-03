@@ -17,13 +17,20 @@ full_scale=4096 #Input field size
 # VALID_CLAS_IDS have been mapped to the range {0,1,...,19}
 VALID_CLASS_IDS = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 28, 33, 34, 36, 39])
 
+def get_files(split):
+  dset_path = '/DS/ScanNet/SparseCNN'
+  with open(f'Benchmark/scannetv1_{split}.txt') as f:
+    scene_names = [l.strip() for l in f.readlines()][0:10]
+  files = [f'{dset_path}/{scene}/{scene}_vh_clean_2.pth' for scene in scene_names]
+  return files
+
 train,val=[],[]
 for x in torch.utils.data.DataLoader(
-      glob.glob('train/*.pth'),
+      get_files('train'),
         collate_fn=lambda x: torch.load(x[0]), num_workers=mp.cpu_count()):
     train.append(x)
 for x in torch.utils.data.DataLoader(
-      glob.glob('val/*.pth'),
+      get_files('val'),
         collate_fn=lambda x: torch.load(x[0]), num_workers=mp.cpu_count()):
     val.append(x)
 print('Training examples:', len(train))
