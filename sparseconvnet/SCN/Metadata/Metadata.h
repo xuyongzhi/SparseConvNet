@@ -1,7 +1,7 @@
 // Copyright 2016-present, Facebook, Inc.
 // All rights reserved.
 //
-// This source code is licensed under the license found in the
+// This source code is licensed under the BSD-style license found in the
 // LICENSE file in the root directory of this source tree.
 
 #ifndef Metadata_H
@@ -104,9 +104,9 @@ public:
   void appendMetadata(Metadata<dimension> &mAdd,
                       /*long*/ at::Tensor spatialSize);
 
-  at::Tensor sparsifyCompare(Metadata<dimension> &mReference,
-                             Metadata<dimension> &mSparsified,
-                             /*long*/ at::Tensor spatialSize);
+  std::vector<at::Tensor> sparsifyCompare(Metadata<dimension> &mReference,
+                                          Metadata<dimension> &mSparsified,
+                                          /*long*/ at::Tensor spatialSize);
 
   // tensor is size[0] x .. x size[dimension-1] x size[dimension]
   // size[0] x .. x size[dimension-1] == spatial volume
