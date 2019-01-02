@@ -21,7 +21,7 @@ def get_files(split):
   import os
   cur_path = os.path.dirname(os.path.abspath(__file__))
   dset_path = f'{cur_path}/ScanNetTorch'
-  with open(f'Benchmark/scannetv1_{split}.txt') as f:
+  with open(f'Benchmark_Small/scannetv1_{split}.txt') as f:
     scene_names = [l.strip() for l in f.readlines()]
   files = [f'{dset_path}/{scene}/{scene}_vh_clean_2.pth' for scene in scene_names]
   return files
