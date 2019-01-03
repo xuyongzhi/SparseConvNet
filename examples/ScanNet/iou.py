@@ -44,11 +44,15 @@ def evaluate(pred_ids,gt_ids):
         label_name = CLASS_LABELS[i]
         label_id = VALID_CLASS_IDS[i]
         class_ious[label_name] = get_iou(label_id, confusion)
+        if np.any(np.isnan(class_ious[label_name])):
+          continue
         mean_iou+=class_ious[label_name][0]/20
 
     print('classes          IoU')
     print('----------------------------')
     for i in range(len(VALID_CLASS_IDS)):
         label_name = CLASS_LABELS[i]
+        if np.any(np.isnan(class_ious[label_name])):
+          continue
         print('{0:<14s}: {1:>5.3f}   ({2:>6d}/{3:<6d})'.format(label_name, class_ious[label_name][0], class_ious[label_name][1], class_ious[label_name][2]))
     print('mean IOU', mean_iou)

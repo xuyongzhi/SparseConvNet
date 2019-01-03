@@ -22,22 +22,9 @@ import numpy as np
 use_cuda = torch.cuda.is_available()
 exp_name='results/unet_scale20_m16_rep1_notResidualBlocks'
 
-class Model(nn.Module):
-    def __init__(self):
-        nn.Module.__init__(self)
-        self.sparseModel = scn.Sequential().add(
-           scn.InputLayer(data.dimension,data.full_scale, mode=4)).add(
-           scn.SubmanifoldConvolution(data.dimension, 3, m, 3, False)).add(
-               scn.FPN_Net(data.dimension, block_reps, [m, 2*m], residual_blocks)).add(
-           scn.BatchNormReLU(m)).add(
-           scn.OutputLayer(data.dimension))
-        self.linear = nn.Linear(m, 20)
-    def forward(self,x):
-        x=self.sparseModel(x)
-        x=self.linear(x)
-        return x
 
-unet=Model()
+nPlanes = [m, 2*m, 3*m, 4*m]
+unet = scn.FPN_Net(data.full_scale, data.dimension, block_reps, nPlanes, residual_blocks)
 if use_cuda:
     unet=unet.cuda()
 
